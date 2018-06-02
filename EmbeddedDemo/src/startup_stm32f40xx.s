@@ -203,12 +203,12 @@ g_pfnVectors:
 	.thumb_set EXTI0_IRQHandler,Default_Handler
 	.weak      EXTI1_IRQHandler         
 	.thumb_set EXTI1_IRQHandler,Default_Handler
-	.weak      EXTI2_IRQHandler         
-	.thumb_set EXTI2_IRQHandler,Default_Handler 
-	.weak      EXTI3_IRQHandler         
-	.thumb_set EXTI3_IRQHandler,Default_Handler
-	.weak      EXTI4_IRQHandler         
-	.thumb_set EXTI4_IRQHandler,Default_Handler
+	//.weak      EXTI2_IRQHandler
+	//.thumb_set EXTI2_IRQHandler,Default_Handler
+	//.weak      EXTI3_IRQHandler
+	//.thumb_set EXTI3_IRQHandler,Default_Handler
+	//.weak      EXTI4_IRQHandler
+	//.thumb_set EXTI4_IRQHandler,Default_Handler
 	.weak      DMA1_Stream0_IRQHandler               
 	.thumb_set DMA1_Stream0_IRQHandler,Default_Handler
 	.weak      DMA1_Stream1_IRQHandler               
@@ -233,8 +233,8 @@ g_pfnVectors:
 	.thumb_set CAN1_RX1_IRQHandler,Default_Handler
 	.weak      CAN1_SCE_IRQHandler                  
 	.thumb_set CAN1_SCE_IRQHandler,Default_Handler
-	.weak      EXTI9_5_IRQHandler   
-	.thumb_set EXTI9_5_IRQHandler,Default_Handler
+	//.weak      EXTI9_5_IRQHandler
+	//.thumb_set EXTI9_5_IRQHandler,Default_Handler
 	.weak      TIM1_BRK_TIM9_IRQHandler            
 	.thumb_set TIM1_BRK_TIM9_IRQHandler,Default_Handler
 	.weak      TIM1_UP_TIM10_IRQHandler            

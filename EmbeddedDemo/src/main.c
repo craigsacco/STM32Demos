@@ -32,6 +32,7 @@ void vApplicationIdleHook(void)
 
 void vApplicationMallocFailedHook(void)
 {
+    // disable interrupts and loop indefinitely
     taskDISABLE_INTERRUPTS();
     while (1)
     {
@@ -40,18 +41,23 @@ void vApplicationMallocFailedHook(void)
 
 void assert_failed(uint8_t* file, uint32_t line)
 {
+    // disable interrupts and loop indefinitely
+    taskDISABLE_INTERRUPTS();
     while (1)
     {
     }
 }
 
-extern void exampleDigitalOutputs(void);
+extern void setupExampleDigitalOutputs(void);
+extern void setupExampleDigitalInputs(void);
 
 int main(void)
 {
-    exampleDigitalOutputs();
+    // setup examples
+    setupExampleDigitalOutputs();
+    setupExampleDigitalInputs();
 
+    // start the task scheduler - should never return
     vTaskStartScheduler();
-
     return 0;
 }
