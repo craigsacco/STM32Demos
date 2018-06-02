@@ -34,9 +34,6 @@ SOFTWARE.
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-/* Highest address of the user mode stack */
-_estack = 0x20020000;    /* end of 128K RAM */
-
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0;      /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
@@ -45,10 +42,13 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
   FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K
-  RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 128K
-  MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
+  SRAM1 (xrw)     : ORIGIN = 0x20000000, LENGTH = 112K
+  SRAM2 (xrw)     : ORIGIN = 0x2001C000, LENGTH = 16K
   CCMRAM (rw)     : ORIGIN = 0x10000000, LENGTH = 64K
 }
+
+/* Highest address of the user mode stack */
+_estack = 0x2001C000;    /* end of SRAM1 */
 
 /* Define output sections */
 SECTIONS
@@ -128,7 +128,7 @@ SECTIONS
 
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
-  } >RAM AT> FLASH
+  } >SRAM1 AT> FLASH
   
   _siccmram = LOADADDR(.ccmram);
 
@@ -163,7 +163,7 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >RAM
+  } >SRAM1
 
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
@@ -174,17 +174,7 @@ SECTIONS
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
     . = ALIGN(4);
-  } >RAM
-
-  /* MEMORY_bank1 section, code must be located here explicitly            */
-  /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
-  .memory_b1_text :
-  {
-    *(.mb1text)        /* .mb1text sections (code) */
-    *(.mb1text*)       /* .mb1text* sections (code)  */
-    *(.mb1rodata)      /* read-only data (constants) */
-    *(.mb1rodata*)
-  } >MEMORY_B1
+  } >SRAM1
 
   /* Remove information from the standard libraries */
   /DISCARD/ :
